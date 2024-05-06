@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load cart_template_tags %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Checkout</title> 
+{% endblock title %}
+
+{% block content %}
+
+<body>
+<section class="hero blog-hero">
+    <div class="container-fluid">
+        <div class="row">
+            <h2>#Payment</h2>
+            <p>Thank you for choosing Living Garden, for making payment see details below!</p>
+        </div>
+    </div>
+</section><!-- hero ./ -->
+  <section id="checkout-container">
+      <div class="container">
+          <div class="row py-5">
+              <div class="col-md-10 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Your Items</span>
+                    <span class="text-muted">{{ request.user|cart_item_count }}</span>
+                </h4>
+                 {% for object_item in object.items.all %}
+                  <ul class="list-group mb-3">                        
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">                                
+                          <div class="container">
+                              <div class="row">
+                                  <!-- Column for Name and Maxwel -->
+                                  <div class="col">
+                                      <div class="row">
+                                      <div class="col"><h6 class="my-0">{{object_item.item.get_category_display}}</h6></div>
+                                      </div>
+                                      <div class="row">
+                                      <div class="col"><small class="text-muted">Quantity</small></div>
+                                      </div>
+                                  </div>
+                                  <div class="col">
+                                      <div class="row">
+                                      <div class="col"><span class="text-muted">Ksh{{object_item.item.price}}</span></div>
+                                      </div>
+                                      <div class="row">
+                                      <div class="col"><span class="text-muted">{{object_item.quantity}}</span></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>                        
+                      {% empty %}
+                      <ul class="list-group mb-3" >
+                          <li class="list-group-item d-flex justify-content-between lh-condensed" >
+                              Your cart is empty
+                          </li>
+                      </ul>
+                      {% endfor %}                   
+                  </ul>
+                  {% if object.get_total %}
+                  <ul class="list-group mb-3">                        
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">                                
+                          <div class="container">
+                              <div class="row">                                                                               
+                                  <div class="row">
+                                      <div class="col">
+                                          <div class="row">
+                                          <div class="col"><h6 class=" my-0">Total (KSH)</h6></div>
+                                          </div>                                            
+                                      </div>
+                                      <div class="col">
+                                          <div class="row">
+                                          <div class="col"><strong class="">Ksh{{ object.get_total }}</strong></div>
+                                          </div>
+                                      </div>
+                                  </div>                                       
+                              </div>
+                          </div>
+                      </li>           
+                  </ul>
+                  {% endif %}
+              <div class="col-md-12 md-4">                                
+                  <h4 class="mb-3">Make Payment</h4>
+                    <form class="card-body" action="." method = 'POST' >
+                        {% csrf_token %}                        
+                            <div class="col-md-4 mb-3">
+                                <label for="phone_number">Phone Number</label>
+                                {{ form.phone_number }}                              
+                                {% comment "<input type="text"  class="form-control" id="town" placeholder="+254xxxxxxxxx" required>" %}{% endcomment %}
+                            </div>              
+                        <button class="btn btn-primary " type="submit">
+                            <i class="fa fa-credit-card"></i> Mpesa Pay</button>
+                    </form>
+              </div>
+          </div>
+      </div>
+  </section>
+
+</body>
+
+{% endblock content %}

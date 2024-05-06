@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Contact</title> 
+{% endblock title %}
+
+{% block content %}
+<main class="wrapper">
+<section class="hero contact-hero">
+<div class="container-fluid">
+    <div class="row">
+        <h2>#Contact Us</h2>
+        <p>
+            For any request, clarification or criticism you can contact us directly by phone or you can write to us by e-mail by filling out the following form!
+        </p>
+    </div>
+</div>
+</section><!-- hero ./ -->
+
+<section class="contact">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 details">
+            <span>Get In Touch</span>
+            <h2>Visit one of our 3 Shop's locations or Contact Us from Everywhere Online!</h2>
+            <h3>Central Office</h3>
+            <ul>
+                <li>
+                    <i class="uil uil-map-marker"></i>
+                    <p>
+                        <span>Living Garden, near Nakuru County Office</span>
+                    </p>
+                </li>
+                <li>
+                    <i class="uil uil-envelope-alt"></i>
+                    <p>
+                        <span>
+                            email: <a href="maxwelotieno011@gmail.com">maxwelotieno011@gmail.com</a>
+                        </span>
+                    </p>
+                </li>
+                <li>
+                    <i class="uil uil-phone-alt"></i>
+                    <p>
+                        <span>
+                            tel: <a href="tel:+254742273610">+254 (7) 42 27 36 10</a>
+                        </span>
+                    </p>
+                </li>
+                <li>
+                    <i class="uil uil-clock-ten"></i>
+                    <p>
+                        <span>Monday to Saturday: 07:00am - 22:00pm</span>
+                    </p>
+                </li>
+            </ul>
+            
+        </div>
+        <div class="col-md-6 col-lg-6 map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31917.60232612637!2d35.13774276138418!3d-0.44071473061041616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182af952a4f0a645%3A0xb173ef6fca4bb197!2sUNIVERSITY%20OF%20KABIANGA%2C%20(UoK)!5e0!3m2!1sen!2ske!4v1706906181170!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="form-details">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 form">
+            <form action="">
+                <span>Leave a Message</span>
+                <h3>For any request, clarification or criticism you can contact us directly by phone or you can write to us by e-mail by filling out the following form!</h3>
+                <input type="text" placeholder="Your Name" />
+                <input type="text" placeholder="Your E-Mail Address" />
+                <input type="text" placeholder="Your Subject" />
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <button class="btn-normal">Submit</button>
+            </form>
+        </div>
+
+        <div class="col-md-6 col-lg-6 people">
+            <div>
+                <img src="{% static 'img1/icon/small-ico.png' %}" alt="Ora">
+                <p>
+                    <span>Max Millan</span> Ceo-Founder & Chef <br> 
+                    Phone: +254 (7) 44 123 456 <br>
+                    Email: john.alan@lg.com
+                </p>
+            </div>
+            <div>
+                <img src="{% static 'img1/icon/small-ico.png' %}" alt="Ora">
+                <p>
+                    <span>Jim Smith</span> Senior Manager <br> 
+                    Phone: +254 (7) 44 123 456 <br>
+                    Email: jill.smith@lg.com
+                </p>
+            </div>
+            <div>
+                <img src="{% static 'img1/icon/small-ico.png' %}" alt="Ora">
+                <p>
+                    <span>Dickson Smith</span> Organisatory <br> 
+                    Phone: +254 (7) 47 123 456 <br>
+                    Email: dickson.smith@lg.com
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock content %}        

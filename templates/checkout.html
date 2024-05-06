@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% load cart_template_tags %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Checkout</title> 
+{% endblock title %}
+
+{% block content %}
+
+<body>
+<section class="hero blog-hero">
+    <div class="container-fluid">
+        <div class="row">
+            <h2>#Checkout</h2>
+            <p>Thank you for choosing Living Garden, for the checkout/payment see details below!</p>
+        </div>
+    </div>
+</section><!-- hero ./ -->
+  <section id="checkout-container">
+      <div class="container">
+          <div class="row py-5">
+              <div class="col-md-4 order-md-2 mb-4">
+                  <h4 class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="text-muted">Your Items</span>
+                      <span class="text-muted">{{ request.user|cart_item_count }}</span>
+                  </h4>
+                   {% for object_item in object.items.all %}
+                    <ul class="list-group mb-3">                        
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">                                
+                            <div class="container">
+                                <div class="row">
+                                    <!-- Column for Name and Maxwel -->
+                                    <div class="col">
+                                        <div class="row">
+                                        <div class="col"><h6 class="my-0">{{object_item.item.get_category_display}}</h6></div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col"><small class="text-muted">Quantity</small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row">
+                                        <div class="col"><span class="text-muted">Ksh{{object_item.item.price}}</span></div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col"><span class="text-muted">{{object_item.quantity}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>                        
+                        {% empty %}
+                        <ul class="list-group mb-3" >
+                            <li class="list-group-item d-flex justify-content-between lh-condensed" >
+                                Your cart is empty
+                            </li>
+                        </ul>
+                        {% endfor %}                   
+                    </ul>
+                    {% if object.get_total %}
+                    <ul class="list-group mb-3">                        
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">                                
+                            <div class="container">
+                                <div class="row">                                                                               
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                            <div class="col"><h6 class=" my-0">Total (KSH)</h6></div>
+                                            </div>                                            
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                            <div class="col"><strong class="">Ksh{{ object.get_total }}</strong></div>
+                                            </div>
+                                        </div>
+                                    </div>                                       
+                                </div>
+                            </div>
+                        </li>           
+                    </ul>
+                    {% endif %}
+                  <div class="payment-methods">
+                      <p class="pt-4 mb-2">Payment Options</p>  
+                      <hr>
+                        <div class="payment">
+                            <i class="uil uil-master-card"></i>
+                            <i class="uil uil-paypal"></i>
+                            <i class="uil uil-bill"></i>
+                            <i class="uil uil-credit-card-search"></i>
+                        </div>
+                  </div>
+              </div>
+              <div class="col-md-8 order-md-1">           
+                 <!--<form>
+                    {{ csrf_token }}
+                    {{ form| crispy }}
+                    <button class="btn btn-primary" type ="submit"></button>
+                  </form>-->
+                    <form class="card-body" method = 'POST' >
+                        {% csrf_token %}
+                        <h4 class="mb-3">Shipping address</h4>
+                        <div class="hideable_shipping_form">
+                            <div class="col-md-7 mb-3">
+                                <label id="id_county" for="county">County</label>
+                                {% comment "<select class="custom-select d-block w-100" id="country" required></select> " %}{% endcomment %}                              
+                                {{ form.county }}
+                            </div>
+                            <div class="col-md-7 mb-3">
+                                <label id="id_town" for="town">Town</label>
+                                {% comment " %}<input type="text"  class="form-control" id="town" placeholder="Naivasha" required>{% endcomment %}
+                                {{form.billing_address}}
+                            </div> 
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label id="id_pick_station" for="pick-station">Pick Up Station</label>
+                                    {% comment "" %}<input type="text" class="form-control" id="pick-station" placeholder="Opposite Afya House">{% endcomment %}
+                                    {{ form.pick_station }}
+                                </div>                         
+                                <div class="col-md-3 mb-3">
+                                    <label for="zip">Zip</label>
+                                    {% comment "<input type="text" class="form-control" id="zip" placeholder="" required>" %}{% endcomment %}
+                                    {{ form.zip }}                                    
+                                </div>
+                            </div>
+                            <hr class="mb-4">                        
+                            <div class="custom-control custom-checkbox">
+                                <input  type="checkbox" name="set_default_shipping" class="custom-control-input" id="set_default_shipping">
+                                <label class="custom-control-label" for="set_default_shipping">Save this as default shipping address</label>
+                            </div>
+                        </div>
+                        {% if default_shipping_address %}
+                        <div class="custom-control custom-checkbox">
+                            <input  type="checkbox" name="use_default_shipping" class="custom-control-input" id="use_default_shipping">
+                            <label class="custom-control-label" for="use_default_shipping">Use default shipping address: <span class="text-primary"> {{ default_shipping_address.town_address }}</span>.</label>
+                        </div>
+                        {% endif %}
+                        <hr class="mb-4">
+                        <h4 class="mb-3">Payment</h4>
+
+                        <div class="d-block my-3">
+                            {% for value, name in form.fields.payment_option.choices %}
+                            <div class="custom-control custom-radio">
+                                <input id="{{ name }}" value="{{ value }}" name="payment_option" type="radio" class="custom-control-input" required>
+                                {% comment "{{ form.payment_option }}" %}{% endcomment %}
+                                <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>                       
+                        <hr class="mb-4">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa fa-credit-card"></i> Continue to Payment</button>
+                    </form>                    
+              </div>
+          </div>
+      </div>
+  </section>
+</body>
+
+{% endblock content %}
+{% block extra_scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded",
+    function(){
+        var within_nairobi =document.querySelector('option[value="within_nairobi"]');
+        var within_kisumu =document.querySelector('option[value="within_kisumu"]');
+        var within_mombasa =document.querySelector('option[value="within_mombasa"]');
+        var within_nakuru =document.querySelector('option[value="within_nakuru"]');
+        var within_kericho =document.querySelector('option[value="within_kericho"]');
+        var within_em =document.querySelector('option[value="within_em"]');
+        var within_kib =document.querySelector('option[value="within_kib"]');
+        var within_la =document.querySelector('option[value="within_la"]');
+        var within_ny =document.querySelector('option[value="within_ny"]');
+        var within_se =document.querySelector('option[value="within_se"]');
+        var within_aw =document.querySelector('option[value="within_aw"]');
+        var within_mv =document.querySelector('option[value="within_mv"]');
+        var within_nj =document.querySelector('option[value="within_nj"]');
+        var within_ki =document.querySelector('option[value="within_ki"]');
+        var within_jo =document.querySelector('option[value="within_jo"]');
+        var within_ba =document.querySelector('option[value="within_ba"]');
+        var within_mo =document.querySelector('option[value="within_mo"]');
+        var within_na =document.querySelector('option[value="within_na"]');
+        var within_be =document.querySelector('option[value="within_be"]');
+        var within_bu  =document.querySelector('option[value="within_bu"]');
+        // Disable the Options
+        within_nairobi.disabled = true;
+        within_kisumu.disabled = true;
+        within_mombasa.disabled = true;
+        within_nakuru.disabled = true;
+        within_kericho.disabled = true;
+        within_em.disabled = true;
+        within_kib.disabled = true;
+        within_la.disabled = true;
+        within_ny.disabled = true;
+        within_se.disabled = true;
+        within_aw.disabled = true;
+        within_mv.disabled = true;
+        within_jo.disabled = true;
+        within_ki.disabled = true;
+        within_ba.disabled = true;
+        within_nj.disabled = true;
+        within_mo.disabled = true;
+        within_na.disabled = true;
+        within_be.disabled = true;
+        within_bu.disabled = true;
+        //style the Options
+        within_nairobi.style.color = "blue";
+        within_kisumu.style.color = "blue";
+        within_mombasa.style.color = "blue";
+        within_nakuru.style.color = "blue";
+        within_kericho.style.color = "blue";
+        within_em.style.color = "blue";
+        within_kib.style.color = "blue";
+        within_la.style.color = "blue";
+        within_ny.style.color = "blue";
+        within_se.style.color = "blue";
+        within_aw.style.color = "blue";
+        within_mv.style.color = "blue";
+        within_jo.style.color = "blue";
+        within_ki.style.color = "blue";
+        within_nj.style.color = "blue";
+        within_ba.style.color = "blue";
+        within_mo.style.color = "blue";
+        within_na.style.color = "blue";
+        within_be.style.color = "blue";
+        within_bu.style.color = "blue";
+    });
+</script>
+
+<script>
+var hideable_shipping_form = $('.hideable_shipping_form'); 
+var use_default_shipping = document.querySelector("input[name=use_default_shipping]");
+
+use_default_shipping.addEventListener('change', function(){
+    if (this.checked) {
+        hideable_shipping_form.hide();
+    }
+    else {
+        hideable_shipping_form.show();
+    }
+})
+
+
+</script>
+
+{% endblock extra_scripts %}

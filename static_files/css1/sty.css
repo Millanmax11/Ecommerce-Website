@@ -1,0 +1,250 @@
+html,body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.my-login-page {
+    background-color: #a7f5a7;
+    font-size: 16px;
+    padding-bottom: 100px;
+}
+
+.my-login-page .brand {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 40px auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,.05);
+    position: relative;
+    z-index: 1;
+}
+
+.my-login-page .brand img {
+    width: 100%;
+}
+
+.my-login-page .card-wrapper {
+    width: 400px;
+}
+
+.my-login-page .card {
+    border-color: transparent;
+    box-shadow: 0 4px 8px rgba(0,0,0,.05);
+}
+
+.my-login-page .card.fat {
+    padding: 10px;
+}
+
+.my-login-page .card .card-title {
+    margin-bottom: 30px;
+}
+
+.my-login-page .form-control {
+    border-width: 2.3px;
+}
+
+.my-login-page .form-group label {
+    width: 100%;
+}
+
+.my-login-page .btn.btn-block {
+    padding: 12px 10px;
+}
+
+.my-login-page .footer {
+    margin: 40px 0;
+    color: #888;
+    text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+    .my-login-page .card-wrapper {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .my-login-page .card.fat {
+        padding: 0;
+    }
+
+    .my-login-page .card.fat .card-body {
+        padding: 15px;
+    }
+}
+.footer{
+    width: 100%;
+    height: 70px;
+    background-color: #e9dddd;
+    
+    position: fixed;
+    bottom: 0;
+}
+
+ .copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    text-align: center;
+    color: var(--black-high);
+    background-color: var(--nav-color) !important;
+    box-shadow: 0px -15px 15px 0px rgba(0,0,0,0.1);
+}
+.alert{
+    height: 20%;
+}
+
+@supports (backdrop-filter: blur(1rem)) {
+    .copyright {
+        backdrop-filter: blur(1rem) !important;
+    }
+}
+
+.footer .copyright p {
+    margin-bottom: 0;
+}
+
+.copyright * {
+    font-size: 16px !important;
+    font-weight: bold;
+}
+
+ .footer .copyright {
+    display: block;
+}
+
+.copyright * {
+    font-size: 16px !important;
+}
+
+/* Cart */
+.cart {
+    margin: 50px auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.cart::-webkit-scrollbar,
+.cart::-webkit-scrollbar-track,
+.cart::-webkit-scrollbar-thumb,
+.cart::-webkit-scrollbar-thumb:hover { 
+    opacity: 0;
+    visibility: hidden;
+}
+
+.cart table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    /* table-layout: auto !important; */
+    white-space: nowrap !important;
+}
+
+.cart table > *,
+.cart table td {
+    color: var(--black-high) !important;
+}
+
+.cart table > tbody{
+    line-height: 70px;
+}
+
+.cart table img {
+    display: block;
+    width: 70px;
+    height: 70px;
+    line-height: auto;
+    margin: 0px auto;
+}
+
+.cart table tr td input {
+    width: 50px;
+    height: 47px;
+    line-height: 47px;
+    margin-right: 10px;
+    padding-left: 10px;
+    font-size: 16px; 
+}
+
+.cart table tr td input[type=number]::-webkit-inner-spin-button {
+    cursor: pointer;
+} 
+
+.cart table tr td input:focus {
+    outline: none;
+}
+
+.cart table td:nth-child(1) {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.cart table td:nth-child(2) {
+    width: 150px;
+    text-align: center;
+}
+
+.cart table td:nth-child(3) {
+    width: 250px;
+    text-align: center;
+}
+
+.cart table td:nth-child(4)
+.cart table td:nth-child(5)
+.cart table td:nth-child(6) {
+    width: 150px;
+    text-align: center;
+}
+
+.cart table td:nth-child(5) input {
+    width: 70px;
+    padding: 10px 5px 10px 15px;
+}
+
+/* cart p-2 */
+.cart-add {
+    margin: 50px auto;
+}
+
+.cupon h3 {
+    padding-bottom: 15px;
+}
+
+.cupon input {
+    width: 60%;
+    margin-right: 10px;
+    padding: 10px 20px;
+    outline: none;
+    border: 1px solid var(--gray);
+}
+
+.cupon button,
+.subtotal button {
+    padding: 12px 20px;
+    color: var(--white);
+    background-color: var(--black-high);
+}
+
+.subtotal {
+    padding: 30px;
+    border: 1px solid var(--black-high);
+    border-radius: 5px;
+}
+
+.subtotal table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.subtotal table > *,
+.subtotal table td {
+    color: var(--black-high) !important;
+}

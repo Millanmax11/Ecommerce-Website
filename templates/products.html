@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Checkout</title> 
+{% endblock title %}
+
+{% block content %}
+<main class="wrapper">
+    <section class="product-details">
+        <div class="container-fluid">
+            <div class="row gap-5">
+                <div class="col-md-12 col-lg-4 mx-auto single-product-img ">
+                    <div class="big-product">
+                        <img src="{{object.cover.url}}" class="pro-img img-fluid" alt="{{ object.image_title }}" />
+                    </div>
+                    <div class="img-gr d-flex justify-content-between">
+                        <div class="col-lg-3 img-col">
+                            <img src="{{object.cover.url}}" class="img-sm" alt="{{ object.image_title }}" />
+                        </div>
+                        <div class="col-lg-3 img-col">
+                            <img src="{{object.cover.url}}" class="img-sm" alt="{{ object.image_title }}" />
+                        </div>
+                        <div class="col-lg-3 img-col">
+                            <img src="{{object.cover.url}}" class="img-sm" alt="{{ object.image_title }}" />
+                        </div>
+                        <div class="col-lg-3 img-col">
+                            <img src="{{object.cover.url}}" class="img-sm" alt="{{ object.image_title }}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-5 mx-auto single-details details">
+                        <h6 class="text-success">{{ object.get_category_display }}</h6>
+                        <h4>{{ object.get_label_display }}</h4>
+                        <h4><span class="old-prc">Ksh{{object.old_price}}</span>Ksh{{object.price}}</h4>                        
+                    <a href="{{object.get_add_to_cart_url}}">           
+                        <button class="btn-normal btn btn-primary">Add to Cart</button>
+                    </a>
+                    <a href="{{object.get_remove_from_cart_url}}">           
+                        <button class="btn-normal btn btn-danger">Remove From Cart</button>
+                    </a>
+                    <h4>Product Details</h4>
+                    <span>
+                        {{object.description}}
+                        <br>
+                        <a href="http://ora-ks.com/dyqanet">http://ora-ks.com/dyqanet</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products pm mb-5 pb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <article class="title text-center">
+                        <h2 class="title-sec">Products</h2>
+                        <p class="sub-title">Related Products <i class="uil uil-list-ui-alt"></i><i class="uil uil-watch-alt"></i></p>
+                    </article>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="product-item discount">
+                        <div class="product-item-inner">
+                            <span class="discount">-25%</span>
+                            <a href="./products/product-details.html" class="link">
+                                <figure class="img-box">
+                                    <img src="{% static 'img1\flo\mix bunches12.jpg' %}">
+                                </figure>
+                            </a>
+                            <div class="details">
+                                <span class="cat"><i class="uil uil-tag-alt"></i> Delhi</span>
+                                <a href="./products/product-details.html" class="link">
+                                    <h5 class="title">LG Delhi</h5>
+                                </a>
+                                <div class="star">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                    <i class="uil uil-favorite"></i>
+                                    <h4><span class="old-prc">Ksh149.0&euro;</span>Ksh119.0</h4>
+                                </div>
+                                <a href="#" class="go-to-cart"><i class="uil uil-shopping-bag shopping-cart cart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- products-end ./ -->
+            </div>
+            <div class="row">
+                <div class="col-12 text-center mt-3">
+                    <a href="./products.html" class="btn btn-theme">View All Products <i class="uil uil-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section><!-- products-end ./ -->
+</main>
+{% endblock content %}
