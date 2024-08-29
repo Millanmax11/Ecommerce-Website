@@ -7,97 +7,97 @@ PAYMENT_CHOICES = (
 )
 
 COUNTIES = (
-    ('nairobi', 'Nairobi'),
-    ('kisumu', 'Kisumu'),
-    ('mombasa', 'Mombasa'),
-    ('nakuru', 'Nakuru'),
-    ('kericho', 'Kericho'),
+    ('Nairobi', 'Nairobi'),
+    ('Kisumu', 'Kisumu'),
+    ('Mombasa', 'Mombasa'),
+    ('Nakuru', 'Nakuru'),
+    ('Kericho', 'Kericho'),
 )
 TOWNS =(
         ('within_nairobi','-----------------WITHIN NAIROBI-----------------'),
-        ('embakasi','Embakasi'),
-        ('kibera','Kibera'),
-        ('langata','Langata'),
+        ('Embakasi','Embakasi'),
+        ('Kibera','Kibera'),
+        ('Langata','Langata'),
 
         ('within_kisumu','-----------------WITHIN KISUMU-----------------'),
-        ('nyakach','Nyakach'),
-        ('seme','Seme'),
-        ('awasi','Awasi'),
+        ('Nyakach','Nyakach'),
+        ('Seme','Seme'),
+        ('Awasi','Awasi'),
 
         ('within_mombasa','-----------------WITHIN MOMBASA---------------'),
-        ('mvita','Mvita'),
-        ('jomvu','Jomvu'),
-        ('kisauni','Kisauni'),
+        ('Mvita','Mvita'),
+        ('Jomvu','Jomvu'),
+        ('Kisauni','Kisauni'),
 
         ('within_nakuru','-----------------WITHIN NAKURU-----------------'),
-        ('njoro','Njoro'),
-        ('bahati','Bahati'),
-        ('molo','Molo'),
-        ('naivasha','Naivasha'),
+        ('Njoro','Njoro'),
+        ('Bahati','Bahati'),
+        ('Molo','Molo'),
+        ('Naivasha','Naivasha'),
 
         ('within_kericho','-----------------WITHIN KERICHO-----------------'),    
-        ('belgut','Belgut'),
-        ('bureti','Bureti'),
+        ('Belgut','Belgut'),
+        ('Bureti','Bureti'),
 )
 PICK_STATION = (
         ('within_em','-----------------WITHIN EMBAKASI-----------------'),
-        ('Daima_Spring_Pick-up', 'Daima Spring Pick-up station near Pipeline AIC'),
-        ('Fedha_Estate_Pick-upn', 'Fedha Estate Pick-up station opposite Ora Petrol Station'),
+        ('Daima Spring Pick-up station near Pipeline AIC', 'Daima Spring Pick-up station near Pipeline AIC'),
+        ('Fedha Estate Pick-up station opposite Ora Petrol Station', 'Fedha Estate Pick-up station opposite Ora Petrol Station'),
 
         ('within_kib','-----------------WITHIN KIBERA-----------------'),
-        ('Kianda_Pick-up', 'Kianda Pick-up station opposite Naivas Supermarket'),
-        ('Lindi_Pick-up', 'Lindi Pick-up station along Lindi Road'),
+        ('Kianda Pick-up station opposite Naivas Supermarket', 'Kianda Pick-up station opposite Naivas Supermarket'),
+        ('Lindi Pick-up station along Lindi Road', 'Lindi Pick-up station along Lindi Road'),
 
         ('within_la','-----------------WITHIN LANGATA-----------------'),
-        ('Bera_Pick-up', 'Bera Pick-up station near Karen International School'),
-        ('Asyana.G_Pick-up', 'Asyana.G Pick-up station along Ngong Road'),
-        ('Karen_Handy_Pick-up', 'Karen Handy Pick-up station near Karen Mall'),
+        ('Bera Pick-up station near Karen International School', 'Bera Pick-up station near Karen International School'),
+        ('Asyana.G Pick-up station along Ngong Road', 'Asyana.G Pick-up station along Ngong Road'),
+        ('Karen Handy Pick-up station near Karen Mall', 'Karen Handy Pick-up station near Karen Mall'),
 
         ('within_ny','-----------------WITHIN NYAKACH-----------------'),
-        ('Jogoo_pick-up', 'Jogoo pick-up station at Katito Market'),
-        ('Edgers_LG_pick-up', 'Edgers LG pick-up station at kolweny Market'),
+        ('Jogoo pick-up station at Katito Market', 'Jogoo pick-up station at Katito Market'),
+        ('Edgers LG pick-up station at kolweny Market', 'Edgers LG pick-up station at kolweny Market'),
 
         ('within_se','-----------------WITHIN SEME-----------------'),
-        ('Bodi_pick-up', 'Bodi pick-up station near Jengo Clinic'),
-        ('Elha_pick-up', 'Elha pick-up station along Bondo Boad'),
+        ('Bodi pick-up station near Jengo Clinic', 'Bodi pick-up station near Jengo Clinic'),
+        ('Elha pick-up station along Bondo Boad', 'Elha pick-up station along Bondo Boad'),
 
         ('within_aw','-----------------WITHIN AWASI-----------------'),
-        ('Awasi_center_pick-up', 'Awasi center pick-up station near Awasi Junction'),
+        ('Awasi center pick-up station near Awasi Junction', 'Awasi center pick-up station near Awasi Junction'),
 
         ('within_mv','-----------------WITHIN MVITA-----------------'),
-        ('Mokupa_pick-up', 'Mokupa pick-up station near Harvard Supermarket'),
-        ('Kibokoni_pick-up', 'Kibokoni pick-up station along Kibokoni Road'),
+        ('Mokupa pick-up station near Harvard Supermarket', 'Mokupa pick-up station near Harvard Supermarket'),
+        ('Kibokoni pick-up station along Kibokoni Road', 'Kibokoni pick-up station along Kibokoni Road'),
 
         ('within_jo','-----------------WITHIN JOMVU-----------------'),
-        ('Miritini_pick-up', 'Miritini pick-up station near Total Petrol Station'),
+        ('Miritini pick-up station near Total Petrol Station', 'Miritini pick-up station near Total Petrol Station'),
 
         ('within_ki','-----------------WITHIN KISAUNI-----------------'),
-        ('Mbwere_pick-up', 'Mbwere pick-up station along Mbwere Road'),
-        ('Watamu_pick-up', 'Watamu pick-up station opposite Jamaa House'),
+        ('Mbwere pick-up station along Mbwere Road', 'Mbwere pick-up station along Mbwere Road'),
+        ('Watamu pick-up station opposite Jamaa House', 'Watamu pick-up station opposite Jamaa House'),
 
         ('within_nj','-----------------WITHIN NJORO-----------------'),
-        ('Shalimo_pick-up', 'Shalimo pick-up station along Molo-Njoro Road'),
-        ('Egerton_pick-up', 'Egerton pick-up station at Egerton Market'),
+        ('Shalimo pick-up station along Molo-Njoro Road', 'Shalimo pick-up station along Molo-Njoro Road'),
+        ('Egerton pick-up station at Egerton Market', 'Egerton pick-up station at Egerton Market'),
 
         ('within_ba','-----------------WITHIN BAHATI-----------------'),
-        ('Wendo_pick-up', 'Wendo pick-up station along Miriti Road'),
-        ('Githioro_pick-up', 'Githioro pick-up station near Boss Hardware'),
+        ('Wendo pick-up station along Miriti Road', 'Wendo pick-up station along Miriti Road'),
+        ('Githioro pick-up station near Boss Hardware', 'Githioro pick-up station near Boss Hardware'),
 
         ('within_mo','-----------------WITHIN MOLO-----------------'),
-        ('Jamaa_pick-up', 'Jamaa pick-up station opposite Ibra Hotel'),
-        ('Turi Center_pick-up', 'Turi Center pick-up station near Molo Fine Milk Shop'),
+        ('Jamaa pick-up station opposite Ibra Hotel', 'Jamaa pick-up station opposite Ibra Hotel'),
+        ('Turi Center pick-up station near Molo Fine Milk Shop', 'Turi Center pick-up station near Molo Fine Milk Shop'),
 
         ('within_na','-----------------WITHIN NAIVASHA-----------------'),
-        ('Oserian_pick-up', 'Oserian pick-up station near Nairobi Women Hospital'),
-        ('Karagita_pick-up', 'Karagita pick-up station opposite Karagita AIC'),
+        ('Oserian pick-up station near Nairobi Women Hospital', 'Oserian pick-up station near Nairobi Women Hospital'),
+        ('Karagita pick-up station opposite Karagita AIC', 'Karagita pick-up station opposite Karagita AIC'),
 
         ('within_be','-----------------WITHIN BELGUT-----------------'),
-        ('Litein_pick-up', 'Litein pick-up station along Kericho-Bomet Road'),
-        ('Kabianga_pick-up', 'Kabianga pick-up station at Kabianga Market'),
+        ('Litein pick-up station along Kericho-Bomet Road', 'Litein pick-up station along Kericho-Bomet Road'),
+        ('Kabianga pick-up station at Kabianga Market', 'Kabianga pick-up station at Kabianga Market'),
 
         ('within_bu','-----------------WITHIN BURETI-----------------'),
-        ('Kipteleny_pick-up', 'Kipteleny pick-up station near UDA House'),
-        ('Sesur_pick-up', 'Sesur pick-up station opposite Sesur Police Station'),
+        ('Kipteleny pick-up station near UDA House', 'Kipteleny pick-up station near UDA House'),
+        ('Sesur pick-up station opposite Sesur Police Station', 'Sesur pick-up station opposite Sesur Police Station'),
 )
 class CheckoutForm(forms.Form):    
     county = forms.ChoiceField(choices=(('', 'Select Your County'),) + COUNTIES, widget=forms.Select(attrs={'class': 'form-control custom-select d-block w-100', 'id': 'id_county'}))

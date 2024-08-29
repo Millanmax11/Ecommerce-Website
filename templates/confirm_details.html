@@ -71,7 +71,7 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
                                 <tr>
                                     <td align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 10px;">
                                         <p style="font-size: 16px; font-weight: 400; line-height: 24px; color: #777777;">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium iste ipsa numquam odio dolores, nam.
+                                            Your order is on its way, and you can track its progress to know when it will be delivered
                                         </p>
                                     </td>
                                 </tr>
@@ -82,17 +82,15 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
                                                 <td width="75%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
                                                     Order Confirmation #
                                                 </td>
-                                                <td width="25%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
-                                                    2345678
+                                                {% if order_number %}
+                                                <td width="25%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 800; line-height: 24px; padding: 0px;">
+                                                   {{ order_number.reference_code }}                                                    
                                                 </td>
+                                                {% endif %}
                                             </tr>
                                             <tr>
                                                 <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
                                                     Purchased Item ({{ request.user|cart_item_count }})
-                                                </td>
-                                                {% if object.get_total %}
-                                                <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-                                                    Ksh{{ object.get_total }}
                                                 </td>
                                             </tr>
                                             </tr>
@@ -106,12 +104,17 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
                                                 <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
                                                     TOTAL
                                                 </td>
-                                                <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
-                                                    Ksh{{ object.get_total }}
+                                                {% if all_amount %}
+                                                <td width="45%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
+                                                    Ksh{{ all_amount.get_total }}
                                                 </td>
+                                                {% else %}
+                                                <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
+                                                    Ksh 0
+                                                </td>
+                                                {% endif %}
                                             </tr>
                                         </table>
-                                        {% endif %}
                                     </td>
                                 </tr>
                             </table>
@@ -123,7 +126,7 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
                             <td align="center" height="100%" valign="top" width="100%" style="padding: 0 35px 35px 35px; background-color: #ffffff;" bgcolor="#ffffff">
                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:660px;">
                                 <tr> 
-                                    {% for address in address_list %}
+                                    
                                     <td align="center" valign="top" style="font-size:0;">
                                         <div style="display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;">
             
@@ -131,8 +134,11 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
                                                 <tr>
                                                     <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
                                                         <p style="font-weight: 800;">Delivery Address</p>
-                                                        <p>{{ address.county }}<br>{{ town_address }}<br>{{ address.zip }}<br>{{address.pick_station}}</p>
-            
+                                                        {% if address %}
+                                                        <p>{{ address.county }}<br>{{ address.town_address }}<br>{{ address.zip }}<br>{{address.pick_station}}</p>
+                                                        {% else %}
+                                                        <p>No addresses found.</p>
+                                                        {% endif %}
                                                     </td>
                                                 </tr>
                                             </table>
@@ -142,13 +148,14 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
                                                 <tr>
                                                     <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
                                                         <p style="font-weight: 800;">Estimated Delivery Date</p>
-                                                        <p>January 1st, 2016</p>
+                                                        {% if order_number %}
+                                                        <p>{{ order_number.delivery_date|date:'F jS, Y' }}</p>
+                                                        {% endif %}
                                                     </td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </td>
-                                    {% endfor %}
                                 </tr>
                             </table>
                             </td>
@@ -162,7 +169,7 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
                                             Remember to review and rate our product upon arrival.
                                         </h2>
                                     </td>
-                                    <a href="{% url 'core:sorry' %}" class="btn btn-primary" data-abc="true"> <i class="fa fa-chevron-right"></i> Track your orders</a>
+                                    <a href="{% url 'core:track_orders' %}" class="btn btn-primary" data-abc="true"> <i class="fa fa-chevron-right"></i> Track your orders</a>
                                 </tr>
                             </table>
                             </td>

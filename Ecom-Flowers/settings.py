@@ -106,3 +106,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 #CRISPY-FORMS
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://161e-41-89-104-15.ngrok-free.app',
+]
+

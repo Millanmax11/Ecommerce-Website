@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.shortcuts import reverse
 
-
 # Create your models here.
 CATEGORY_CHOICES = (
    ('chr', 'Chrysanthemum'),
@@ -84,6 +83,7 @@ class Order(models.Model):
   items = models.ManyToManyField(OrderItem)
   start_date = models.DateTimeField(auto_now_add=True)
   ordered_date = models.DateTimeField()
+  delivery_date = models.DateTimeField(blank=True, null=True)
   ordered = models.BooleanField(default=False)
   shipping_address = models.ForeignKey('Address', on_delete=models.SET_NULL, blank=True, null=True)
   transaction = models.ForeignKey('Transaction', on_delete=models.SET_NULL, blank=True, null=True)
@@ -146,3 +146,22 @@ class Refund(models.Model):
 
   def __str__(self):
     return f"{self.pk}"
+  
+class TrackOrder(models.Model):
+  STATUS_CHOICE = [
+    ('confirmed', 'Confirmed'),
+    ('picked_by_courier', 'Picked by Courier'),
+    ('on_the_way','On the way'),
+    ('ready_for_pickup','Ready for Pickup'),
+    ]
+  user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+  status = models.CharField(max_length=20, choices=STATUS_CHOICE, default='confirmed')
+  tracking_number = models.CharField(max_length=20, blank=True, null=True)
+  status_steps = models.JSONField(default=list)
+
+  # Boolean fields for admin approval
+  confirmed_approved = models.BooleanField(default=False)
+  courier_approved = models.BooleanField(default=False)
+  on_the_way_approved = models.BooleanField(default=False)
+  ready_for_pickup_approved = models.BooleanField(default=False)
+  

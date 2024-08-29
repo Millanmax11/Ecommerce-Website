@@ -21,7 +21,6 @@ urlpatterns = [
     path('add_single_item_to_cart/<slug>/', views.add_single_item_to_cart, name ='add_single_item_to_cart'),
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
     path('payment/<payment_option>/', views.PaymentView.as_view(), name="payment"),
-    path('get_address_details/', views.get_address_details, name="get_address_details"),
 
     path('check_error/', views.check_error, name="check_error"), 
     path('confirm_details/', views.confirm_details, name="confirm_details"),

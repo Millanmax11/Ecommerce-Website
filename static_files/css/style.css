@@ -467,7 +467,7 @@ a.active-n:hover {
     align-items: center;
 }
 
-:is(.dark-light, .searchToggle, .cart-checkout) {
+:is(.dark-light, .searchToggle, .cart-checkout, .authenticated) {
     width: 40px;
     height: 70px;
     display: flex;
@@ -478,7 +478,8 @@ a.active-n:hover {
 
 .dark-light i, 
 .searchToggle i,
-.cart-checkout a {
+.cart-checkout a,
+.authenticated a, i{
     position: relative;
     color: var(--white-icon);
     font-size: 16px;

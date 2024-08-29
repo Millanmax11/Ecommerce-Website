@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from datetime import datetime
+from datetime import datetime, timedelta
 import base64
 import random
 import string
@@ -27,11 +27,14 @@ import requests
 
 #form module import
 from .forms import CheckoutForm, PaymentForm, PostForm, RefundForm
-from .models import Item, OrderItem, Order, Address, Transaction, Checkout, Refund
+from .models import Item, OrderItem, Order, Address, Transaction, Checkout, Refund, TrackOrder
 
 # Create your views here.
 def create_ref_code():
    return ''.join(random.choices( string.digits, k=14))
+
+def create_track_number():
+   return ''.join(random.choices( string.ascii_uppercase +string.digits, k=14))
 
 def account_login(request):
   return render(request, "/account/login.html")
@@ -459,6 +462,13 @@ class PaymentView(LoginRequiredMixin, View):
                         for item in order_items:
                            item.save()
 
+                        #delivery time
+                        ordered_date = timezone.now()
+
+                        # Calculate delivery date (ordered_date + 4 days)
+                        delivery_date = ordered_date + timedelta(days=4)
+                        order.delivery_date=delivery_date
+
                         order.ordered =True
                         order.transaction = transaction
                         order.reference_code=create_ref_code()
@@ -510,23 +520,90 @@ class RequestRefundView(View):
                 messages.info(self.request, "This order does not exist.")
                 return redirect("core:request_refund")
 
-def get_address_details(request, town_address):
-    if town_address == 'all':
-        address_list = Address.objects.all()
-    else:
-        address_list = Address.objects.filter(town_address=town_address)
-    return render(request, 'confirm_details.html', {'address_list': address_list})
-
-
-def confirm_details(request):
-   return render(request, "confirm_details.html") 
+def confirm_details(request):    
+    all_amount = Transaction.objects.filter(user=request.user).order_by('-id').first()
+    order_number = Order.objects.filter(user=request.user).order_by('-id').first()
+    user_address = Address.objects.filter(user=request.user).order_by('-id').first()
+    return render(request, "confirm_details.html", {'address': user_address, 'order_number': order_number, 'all_amount': all_amount})
+ 
 
 def check_error(request):
    return render(request, "error_check.html")
 
+def qtrack_order(request):   
+    try:
+        track=TrackOrder()
+        track.tracking_number=create_track_number()
+        track.status_steps = [
+            {"active": True, "icon": "check", "name": "Order confirmed"},
+            {"active": False, "icon": "user", "name": "Picked by courier"},
+            {"active": False, "icon": "truck", "name": "On the way"},
+            {"active": False, "icon": "box", "name": "Ready for pickup"},
+        ]
+        track.save()
+        order_number = Order.objects.filter(user=request.user).order_by('-id').first()
+        track_number = TrackOrder.objects.filter(user=request.user).order_by('-id').first()  
+        # Check if the request is coming from an admin and update the boolean fields accordingly
+        if request.user.is_superuser and request.method == 'POST':
+            if 'courier_approval' in request.POST:
+                track_number.courier_approved = True
+                track_number.save()
+            elif 'on_the_way_approval' in request.POST:
+                track_number.on_the_way_approved = True
+                track_number.save()
+            elif 'pickup_approval' in request.POST:
+                track_number.ready_for_pickup_approved = True
+                track_number.save()
+            # Redirect to the same page after updating the approval status
+            return redirect('track_order')
+        return render(request, "track_orders.html", {'order_number': order_number,'track_number': track_number})
+    except TrackOrder.DoesNotExist:
+        return render(request, "order_not_found.html")  # Render a page for order not found
+    
+#--- new ---
 def track_order(request):
-   return render(request, "track_orders.html")
+    try:
+        # Get or create TrackOrder instance for the current user
+        track_number, created = TrackOrder.objects.get_or_create(user=request.user)
+        
+        # If the TrackOrder instance is newly created, initialize its fields
+        if created:
+            track_number.tracking_number = create_track_number()
+            track_number.status_steps = [
+                {"active": True, "icon": "check", "name": "Order confirmed"},
+                {"active": False, "icon": "user", "name": "Picked by courier"},
+                {"active": False, "icon": "truck", "name": "On the way"},
+                {"active": False, "icon": "box", "name": "Ready for pickup"},
+            ]
+            track_number.save()
+        
+        # Retrieve the latest order for the current user
+        order_number = Order.objects.filter(user=request.user).order_by('-id').first()
+
+        # Check if the request is coming from an admin and update the boolean fields accordingly
+        if request.user.is_superuser and request.method == 'POST':
+            if 'confirmed_approval' in request.POST:
+                track_number.confirmed_approved = True
+                track_number.save()
+            if 'courier_approval' in request.POST:
+                track_number.courier_approved = True
+                track_number.save()
+            elif 'on_the_way_approval' in request.POST:
+                track_number.on_the_way_approved = True
+                track_number.save()
+            elif 'pickup_approval' in request.POST:
+                track_number.ready_for_pickup_approved = True
+                track_number.save()
+            # Redirect to the same page after updating the approval status
+            return redirect('track_order')
+        
+        return render(request, "track_orders.html", {'order_number': order_number,'track_number': track_number})
+    
+    except TrackOrder.DoesNotExist:
+        return render(request, "order_not_found.html")
+
+
 
 
 def sorry(request):
-   return render(request, "sorry.html")      
+   return render(request, "sorry.html")
