@@ -111,3 +111,5 @@ CSRF_TRUSTED_ORIGINS = [
     'https://161e-41-89-104-15.ngrok-free.app',
 ]
 
+import django_heroku
+django_heroku.settings(locals())
