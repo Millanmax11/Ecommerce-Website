@@ -17,6 +17,7 @@ django-mpesa==2.0.14
 djangorestframework==3.14.0
 gunicorn==23.0.0
 idna==3.6
+mysqlclient==2.2.4
 oauthlib==3.2.2
 packaging==24.1
 pep8==1.7.1
