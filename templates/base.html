@@ -1,0 +1,305 @@
+{% load cart_template_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block head_title  %}{% endblock %}</title>    
+<meta name="description" conten="Living Garden | Flowers">
+<meta name="author" content="Max Millan">
+<meta name="keywords" content="Living Gardens " />
+<link rel="icon" href="{% static 'img1\banner\logo3.png' %}" sizes="32x32" />
+<link rel="icon" href="{% static 'img1\banner\logo3.png' %}" sizes="192x192" />
+<link rel="apple-touch-icon" href="{% static 'img1\banner\logo3.png' %}" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="page-loader loader">
+<div class="cmps">
+<span class="mt-4 mx-auto d-block text-center">
+    Loading<b></b><b></b><b></b>
+</span>
+</div>
+</div>
+
+<header class="header">
+<div class="container">
+<section class="header--main">
+    <div class="mobile-menu">
+        <input id="menu__toggle" class="open-nav" type="checkbox" />
+        <label class="menu__btn" class="open" for="menu__toggle">
+            <span></span>
+        </label>
+    </div>
+    <div class="header--logo">
+        <a href="./">
+            <img src="{% static 'img1\banner\logo3.png' %}" class="nav-logo" alt="Living Garden | Logo">
+        </a>
+    </div>
+    <nav class="menu js-menu">
+        <ul class="ul-menu">
+            <li class="menu-item">
+                <a href="{% url 'core:homepage' %}" class="active">Home</a>
+            </li>            
+            <li class="menu-item">
+                <a href="{% url 'core:blog' %}">Blog</a>
+            </li>
+            <li class="menu-item">
+                <a href="{% url 'core:about' %}">About Us</a>
+            </li>
+            <li class="menu-item">
+                <a href="{% url 'core:contact' %}">Contact Us</a>
+            </li>
+                <li class="menu-item menu-item-child">
+                    <a href="#" class="js-sub_menu">Authenticate <i class="uil uil-angle-down"></i></a>
+                    <ul class="sub-menu"> 
+                        {% if user.is_authenticated %}
+                        <li class="sub-menu-item"><a href="{% url 'account_logout' %}">Logout</a></li>
+                        {% else %}
+                        <li class="sub-menu-item"><a href="{% url 'core:custom_signup' %}">Sign Up</a></li>
+                        <li class="sub-menu-item"><a href="{% url 'account_login' %}">Login</a></li>
+                        {% endif %}                        
+                    </ul>    
+                </li>
+        </ul>
+    </nav>
+    <div class="darkLight-searchBox">
+        <div class="dark-light">
+            <!-- <i class="fa-solid fa-moon moon"></i> -->
+            <!-- <i class="fa-solid fa-sun"></i> 
+            <i class="uil uil-moon moon"></i>
+            <i class="uil uil-sun sun"></i>-->
+        </div>
+        <div class="searchBox">
+            <div class="searchToggle">
+                <!-- <i class="fa-solid fa-xmark cancel"></i> -->
+                <!-- <i class="fa-solid fa-magnifying-glass search"></i> -->
+                <i class="uil uil-times cancel"></i>
+                <i class="uil uil-search search"></i>
+            </div>
+
+            <div class="search-field">
+                <input type="text" placeholder="Search..." />
+                <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                <i class="uil uil-search-alt"></i>
+            </div>
+        </div>
+        <div class="cart-checkout">                  
+            <a href="{% url 'core:order_summary' %}" class="uil uil-shopping-bag shopping-cart">
+                <span class="cart-basket d-flex align-items-center justify-content-center">{{ request.user|cart_item_count }}</span>
+            </a>            
+        </div>
+        <div class="authenticated">
+            {% if user.is_authenticated %}
+            <!--<li class="">
+                <i class="fas fa-user"></i> {{ user.username }}                
+            </li>-->
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i> {{ user.username }}
+            </a>
+            {% else %}
+                <a class="nav-link" href="#" style="pointer-events: none;"><i class="fas fa-user"></i></a>
+            {% endif %}
+        </div> 
+    </div>
+</section>
+<div class="progress"></div>
+</div>
+</header><!-- header-end ./ -->
+
+<body>
+    <div class="">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="btn-close mt-5px" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>          
+        {% endfor %}
+        {% endif %}
+    </div>
+{% block content  %}
+
+{% endblock content %}
+{% block extra_body %}
+{% endblock %}
+
+<section class="newsletter">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-lg-8">
+                <div class="newstext">
+                    <h4>Sign Up For Newsletters!</h4>
+                    <p>Get E-Mail updates about our Latest Products and <span>special offers</span>.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="n-form">
+                    <input type="text" placeholder="Your E-Mail Address...">
+                    <button class="btn-normal">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</main><!-- main-body-end ./ -->
+
+
+<footer class="footer">
+<div class="container-footer">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 contact1">
+            <img src="{% static 'img1/banner/logo3.png' %}" class="footer-logo" alt="Living | Garden - Logo">
+            <h4>Contact</h4>
+            <p><span class="fw-bold">Address:</span> Living-Gardens | Nakuru</p>
+            <p><span class="fw-bold">Tel:</span> +254 (7) 42 27 36 10<br>+254 (1) 02 80 32 65</p>                
+            <p><span class="fw-bold">Open:</span> 07:00 - 22:00, Monday - Saturday</p>
+            <div class="social-fllw">
+                <h4>Follow us</h4>
+                <div class="icons d-flex justify-content-between align-items-center">
+                    <a href="https://m.facebook.com/page">
+                        <i class="uil uil-facebook"></i>
+                    </a>
+                    <a href="https://instagram.com/page">
+                        <i class="uil uil-instagram"></i>
+                    </a>
+                    <a href="https://twitter.com/page">
+                        <i class="uil uil-twitter-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-2 contact2">
+            <h4>About</h4>
+            <a href="{% url 'core:about' %}">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms&amp;Conditions</a>
+            <a href="{% url 'core:contact' %}">Contact Us</a>
+        </div>
+
+        <div class="col-md-6 col-lg-2 contact3">
+            <h4>My Account</h4>
+            <a href="{% url 'core:custom_signup' %}">Sign In</a>
+            <a href="{% url 'core:order_summary' %}">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">My Order</a>
+            <a href="./help.html">Help?</a>
+        </div>
+
+        <div class="col-lg-4 col-md-6 install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="download-on">
+                <img src="{% static 'img/buttons/app-store.png' %}" alt="">
+                <img src="{% static 'img/buttons/google-play.png' %}" alt="">
+            </div>
+            <p>Secured Payment Getaway</p>
+            <div class="payment">
+                <i class="uil uil-master-card"></i>
+                <i class="uil uil-paypal"></i>
+                <i class="uil uil-transaction"></i>
+                <i class="uil uil-bill"></i>
+                <i class="uil uil-credit-card-search"></i>
+                <i class="uil uil-university"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <div class="copyright">
+        <p class="copy">&copy;<span id="year">. Living | Gardens.</span></p>
+        <a href="https://mysite.com/" class="go-to-link">
+            <p class="by">By:</p>
+            <span id="author">Max Millan</span>
+        </a>
+    </div>
+</div>
+
+<button class="back-to-top hidden">
+    <i class="uil uil-angle-up"></i>
+</button>
+
+<div class="cookie">
+    <div class="welcome-alert alert alert-dismissible fade show" role="alert">
+        <section class="ms">
+            <strong>Hello, Welcome to Living | Gardens.com!</strong>
+            <h1 id="author">By: <strong>Living Gardens</strong></h1>
+        </section>
+        <button type="button" class="btn-close welcome"></button>
+    </div>
+    <div>
+        <img src="{% static 'img/other/cookie.png' %}" alt="Cookie Png" />
+    </div>
+    <div class="content">
+        <h1>Cookies Content</h1>
+        <p>We use Cookies to ensure you get the best experience while shooping!</p>
+        <a href="#" class="item">Learn more</a>
+    </div>
+    <div class="btn-actions">
+        <button class="item">I Understand</button>
+    </div>
+</div>
+</footer><!-- footer-end ./ -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src = "https://ajax.googleleapis.com/ajax/libs/jquery/3.7.1/js/bootstrap.min.js">    
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/card/2.4.0/jquery.card.min.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script>
+var proImg = document.querySelector(".pro-img");
+var imgCol = document.querySelectorAll(".img-sm");
+
+imgCol.forEach((img) => {
+    img.onclick = () => {
+        proImg.src = img.src;
+    }
+});
+</script>
+<!-- MDB -->
+<script type="text/javascript" src="{% static '/login_file/js/mdb.min.js' %}"></script>
+<!-- Custom scripts -->
+<script type="text/javascript"></script>
+<script>
+    // Example card form
+    $('.needs-validation').card({
+        container: '.card-wrapper',
+    });
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% block extra_scripts %}
+{% endblock extra_scripts %}
+</body>
+</html>

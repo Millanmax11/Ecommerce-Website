@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Cart</title> 
+{% endblock title %}
+
+{% block content %}
+<main class="wrapper">
+<section class="hero blog-hero">
+    <div class="container-fluid">
+        <div class="row">
+            <h2>#Shopping Cart</h2>
+            <p>Thank you for choosing Living Garden, for your cart see details below!</p>
+        </div>
+    </div>
+</section><!-- hero ./ -->
+<section class="cart">
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>L.No</td>
+                        <td>Remove</td>
+                        <td>Image</td>
+                        <td>Product</td>
+                        <td>Quantity</td>
+                        <td>Price</td>                        
+                        <td>Subtotal</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object_item in object.items.all %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                        <a href="{% url 'core:remove_single_from_cart' object_item.item.slug %}">
+                            <i class="uil uil-times-circle"></i>
+                        </a>
+                        </td>
+                        <td><img src="{{ object_item.item.cover.url }}" alt="{{ object_item.item.image_title }}"></td>
+                        <td>{{object_item.item.get_category_display}}</td>
+                        <td> 
+                            <a href="{% url 'core:remove_single_item_from_cart' object_item.item.slug %}" ><i class="fas fa-minus mr-2"></i></a>
+                                {{object_item.quantity}}
+                            <a href="{% url 'core:add_single_item_to_cart' object_item.item.slug %}"><i class="fas fa-plus ml-2"></i></a>
+                         </td>
+                        <td>{{object_item.item.price}}</td>
+                        <td>Ksh{{ object_item.get_total_item_price }}</td>
+                    </tr> 
+                    {% empty %} 
+                    <tr class="mt-2 mb-2">
+                        <td>Your cart is empty</td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="{% url 'core:homepage' %}" class="btn-normal">Continue Shopping</a>
+                        </td>
+                    </tr>   
+                    {% endfor %}                 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<section class="cart-add">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-6 cupon">
+                <h3>Apply Cupon</h3>
+                <div>
+                    <input type="text" placeholder="Enter your Cupon..!" />
+                    <button class="btn-normal">Apply</button>
+                </div>
+            </div>
+            {% if object.get_total %}
+            <div class="col-md-6 col-lg-6 subtotal">                
+                <h3>Cart Total</h3>
+                <table class="table table-striped">
+                    <tr>
+                        <td>Cart Subtotal</td>
+                        <td>Ksh{{ object.get_total }}</td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td>Free</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>Ksh{{ object.get_total }}</strong></td>
+                    </tr>
+                </table>
+                
+                <a href="{% url 'core:checkout' %}" class="btn-normal">Proceed to Checkout</a>
+                <a href="{% url 'core:homepage' %}" class="btn-normal">Continue Shopping</a>                
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

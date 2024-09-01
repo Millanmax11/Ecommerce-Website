@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Blog</title> 
+{% endblock title %}
+
+{% block content %}
+<main class="wrapper">
+<section class="hero blog-hero">
+<div class="container-fluid">
+<div class="row">
+<h2>#blog</h2>
+<p>Read all case about our products!</p>
+</div>
+</div>
+</section><!-- hero ./ -->
+
+<section class="blog">
+<div class="container">
+<div class="row">
+<div class="col-md-6 col-lg-12 blog-post">
+<div class="bog-img">
+    <img src="{% static 'img1\flo\mix bunches12.jpg' %}" class="mx-auto" alt="Flower Blog" />
+</div>
+<div class="blog-details">
+    <div class="blog-details-rs">
+        <h4>The Mix Bunch</h4>
+        <p>
+            Want a secret?
+            <!--Looking stylish is not about what you wear but how you wear.And that’s where the accessories come to stage. The watch you wear, the sunglasses on your eyes, the glasses that you wear while working, these little touches make big difference. These are the ones that hack your look and make it more stylish. But do we really need to pay fortune to these? For us, No!
+            At Quantum we never stop questioning how we can make style more accesible. Quantum is here to create a world where logic meets style.-->
+            <a href="#">Read More</a>
+        </p>
+    </div>
+    <h1>13/01</h1>
+</div>
+</div>
+<div class="col-md-6 col-lg-12 blog-post">
+<div class="bog-img">
+    <img src="{% static 'img1\flo\poppy flower88.jpg' %}" class="mx-auto" alt="Quantum Blog" />
+</div>
+<div class="blog-details">
+    <div class="blog-details-rs">
+        <h4>The Poppy Flower</h4>
+        <p>
+            Want a secret?
+            <!--Looking stylish is not about what you wear but how you wear.And that’s where the accessories come to stage. The watch you wear, the sunglasses on your eyes, the glasses that you wear while working, these little touches make big difference. These are the ones that hack your look and make it more stylish. But do we really need to pay fortune to these? For us, No!
+            At Quantum we never stop questioning how we can make style more accesible. Quantum is here to create a world where logic meets style.-->
+            <a href="#">Read More</a>
+        </p>
+    </div>
+    <h1>13/01</h1>
+</div>
+</div>
+<div class="col-md-6 col-lg-12 blog-post">
+<div class="bog-img">
+    <img src="{% static 'img1\flo\rose mix.jpg' %}" class="mx-auto" alt="Quantum Blog" />
+</div>
+<div class="blog-details">
+    <div class="blog-details-rs">
+        <h4>The Rose Mix</h4>
+        <p>
+            Want a secret?
+            <!--Looking stylish is not about what you wear but how you wear.And that’s where the accessories come to stage. The watch you wear, the sunglasses on your eyes, the glasses that you wear while working, these little touches make big difference. These are the ones that hack your look and make it more stylish. But do we really need to pay fortune to these? For us, No!
+            At Quantum we never stop questioning how we can make style more accesible. Quantum is here to create a world where logic meets style.-->
+            <a href="#">Read More</a>
+        </p>
+    </div>
+    <h1>13/01</h1>
+</div>
+</div>
+<div class="col-md-6 col-lg-12 blog-post">
+<div class="bog-img">
+    <img src="{% static 'img1\flo\chrysanthemum17.jpg' %}" class="mx-auto" alt="Quantum Blog" />
+</div>
+<div class="blog-details">
+    <div class="blog-details-rs">
+        <h4>The Chrysanthemum Flower</h4>
+        <p>
+            Want a secret?
+            <!--Looking stylish is not about what you wear but how you wear.And that’s where the accessories come to stage. The watch you wear, the sunglasses on your eyes, the glasses that you wear while working, these little touches make big difference. These are the ones that hack your look and make it more stylish. But do we really need to pay fortune to these? For us, No!
+            At Quantum we never stop questioning how we can make style more accesible. Quantum is here to create a world where logic meets style.-->
+            <a href="#">Read More</a>
+        </p>
+    </div>
+    <h1>13/01</h1>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="pagination">
+<div class="container">
+<div class="row">
+<div class="pagination justify-content-center">
+<a class="page-item active" href="?page={{ page_obj.next_page_number }}">1
+    <span class="sr-only">(current)</span>
+</a>
+<a href="#"><i class="uil uil-arrow-right"></i></a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="product-support">
+<div class="container">
+<div class="row">
+<div class="col-md-6 col-lg-12">
+<h4>Repair &amp; Support - Services</h4>
+<h2>Up to <span>30% off</span> - All Flowers At a Discount</h2>
+<button class="btn-normal">Explore More</button>
+</div>
+</div>
+</div>
+</section><!-- product support-end -->
+
+<section class="collection my-5">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 c-box-img">
+            <div class="c-box">
+                <h4>Crazy Deals</h4>
+                <h2>Buy 1 get 1 Free</h2>
+                <span>The best variety flower is on sale at Living Gardens.</span>
+                <button class="btn-coll">Learn More</button>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 c-box-img">
+            <div class="c-box">
+                <h4>Spring / Summer</h4>
+                <h2>Upcomming Season</h2>
+                <span>New variety of flowers | On the way.</span>
+                <button class="btn-coll">Collection</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container xs-c-oll">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 c-box-img">
+            <div class="c-box">
+                <h4>BIRTHDAY FLOWERS</h4>
+                <span>I need of Birthday flowers | Just make a contact | Make your order.</span>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 c-box-img">
+            <div class="c-box">
+                <h4>WEDDING FLOWERS</h4>
+                <span>Wedding flowers available | Decoration | Name it, all available.</span>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 c-box-img">
+            <div class="c-box">
+                <h4>VALENTINE FLOWERS</h4>
+                <span>February Valentine around the corner | Flowers available.</span>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+{% endblock content %}        

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load cart_template_tags %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Request refund</title> 
+{% endblock title %}
+
+{% block content %}
+
+<body>
+<section class="hero blog-hero">
+    <div class="container-fluid">
+        <div class="row">
+            <h2>#Refund</h2>
+            <p>Thank you for choosing Living Garden, for the refund see details below!</p>
+        </div>
+    </div>
+</section><!-- hero ./ -->
+  <section id="checkout-container">
+      <div class="container">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Request Refund</span>
+        </h4>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form| crispy }}
+            <hr class="mb-4">
+            <button type="submit" class="btn btn-primary">Refund</button>
+        </form>
+
+      </div>
+  </section>
+</body>
+
+{% endblock content %}

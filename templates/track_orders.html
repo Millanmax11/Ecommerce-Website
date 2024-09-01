@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load cart_template_tags %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Checkout</title> 
+{% endblock title %}
+
+{% block content %}
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+    .container{margin-top:50px;margin-bottom: 50px}
+    .card{position: relative;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-orient: vertical;-webkit-box-direction: normal;-ms-flex-direction: column;flex-direction: column;min-width: 0;word-wrap: break-word;background-color: #fff;background-clip: border-box;border: 1px solid rgba(0, 0, 0, 0.1);border-radius: 0.10rem}
+    .card-header:first-child{border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0}
+    .card-header{padding: 0.75rem 1.25rem;margin-bottom: 0;background-color: #fff;border-bottom: 1px solid rgba(0, 0, 0, 0.1)}.track{position: relative;background-color: #ddd;height: 7px;display: -webkit-box;display: -ms-flexbox;display: flex;margin-bottom: 60px;margin-top: 50px}
+    .track .step {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        width: 25%;
+        margin-top: -18px;
+        text-align: center;
+        position: relative;
+    }
+    
+    .track .step.active:before {
+        background: #4d79ff;
+    }
+    
+    .track .step::before {
+        height: 7px;
+        position: absolute;
+        content: "";
+        width: 100%;
+        left: 0;
+        top: 18px;
+    }
+    
+    .track .step.active .icon {
+        background: #ee5435;
+        color: #fff;
+    }
+    
+    .track .icon {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        position: relative;
+        border-radius: 100%;
+        background: #ddd;
+    }
+    
+    .track .step.active .text, .track .step.confirmed .text {
+        font-weight: 400;
+        color: #ee5435; /* Change color to orange for confirmed step */
+    }
+    
+    .track .text {
+        display: block;
+        margin-top: 7px;
+    }
+    
+    .itemside{position: relative;display: -webkit-box;display: -ms-flexbox;display: flex;width: 100%;}
+    .itemside .aside{position: relative;-ms-flex-negative: 0;flex-shrink: 0}.img-sm{width: 80px;height: 80px;padding: 7px}ul.row,
+     ul.row-sm{list-style: none;padding: 0}
+     .itemside .info{padding-left: 15px;padding-right: 7px}
+     .itemside .title{display: block;margin-bottom: 5px;color: #212529}p{margin-top: 0;margin-bottom: 1rem}
+     .btn-warning{color: #ffffff;background-color: #ee5435;border-color: #ee5435;border-radius: 1px}
+    .btn-warning:hover{color: #ffffff;background-color: #ff2b00;border-color: #ff2b00;border-radius: 1px}
+    .img-box img {width: 50%;border-radius: 20px;box-shadow: var(--shadow)};
+</style>
+<body>
+<section class="hero blog-hero">
+    <div class="container-fluid">
+        <div class="row">
+            <h2>#Track Your Order</h2>
+            <p>Thank you for choosing Living Garden, for the tracking your orders see details below!</p>
+        </div>
+    </div>
+</section><!-- hero ./ -->
+<section id="checkout-container">
+    <div class="container">
+    <article class="card">
+        <header class="card-header"> My Orders / Tracking </header>
+        <div class="card-body">
+            {% if order_number %}
+            <h6>Order ID: {{ order_number.reference_code }}</h6>
+            {% endif %}
+            <article class="card">
+                <div class="card-body row">
+                    {% if order_number %}
+                    <div class="col"> <strong>Estimated Delivery time:</strong> <br>{{ order_number.delivery_date|date:'F jS, Y' }} </div>
+                    {% endif %}
+                    <div class="col"> <strong>Shipping BY:</strong> <br> MAXGROUP, | <i class="fa fa-phone"></i> 0742273610 </div>
+                    
+                    <div class="col"> <strong>Status:</strong> <br>
+                        {% if track_number %}
+                         {{ track_number.status }}
+                         {% endif%}
+                    </div>
+                    <div class="col"> <strong>Tracking #:</strong> <br>
+                        {% if track_number %}
+                         {{track_number.tracking_number}} 
+                         {% endif%}
+                    </div>                    
+                </div>
+            </article>
+            <div class="track">
+                {% if track_number %}
+                    {% for step in track_number.status_steps %}
+                        <div class="step 
+                            {% if step.active %}active{% endif %} 
+                            {% if step.name == 'Order confirmed' and track_number.confirmed_approved %}active{% endif %}
+                            {% if step.name == 'Picked by courier' and track_number.courier_approved %}active{% endif %} 
+                            {% if step.name == 'On the way' and track_number.on_the_way_approved %}active{% endif %} 
+                            {% if step.name == 'Ready for pickup' and track_number.ready_for_pickup_approved %}active{% endif %}"
+                        > 
+                            <span class="icon"> <i class="fa fa-{{ step.icon }}"></i> </span> 
+                            <span class="text">{{ step.name }}</span> 
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+               
+            <hr>
+            <div class="row">                    
+                <div class="col-lg-3 col-md-1">                                
+                    <a href="{{ item.get_absolute_url }}" class="link">
+                        <figure class="img-box">
+                            <img src="{% static 'img1\flo\chrysanthemum17.jpg' %}" alt="{{ item.image_title }}">
+                        </figure>
+                    </a>
+                    <div class="details">                            
+                        <span class="cat"><i class="uil uil-tag-alt"></i> Mix Bunch</span>
+                        <div class="star">
+                            <h4 class="">Ksh 200</h4>
+                        </div>
+                    </div>
+                </div><!-- products-end ./ -->                    
+            </div>
+            <hr>
+            <a href="#" class="btn btn-primary" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+            <a href="{% url 'core:request_refund' %}" class="btn btn-primary" data-abc="true"> <i class="fa fa-chevron-right"></i> Make Refund</a>
+        </div>
+    </article> 
+    </div>
+</section>
+</body>
+{% endblock content %}

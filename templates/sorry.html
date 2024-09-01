@@ -1,0 +1,136 @@
+{% extends "base_login.html" %}
+{% load static %}
+{% load i18n %}
+{% load allauth account %}
+{% load account socialaccount %}
+{% block head_title  %} 
+Living Garden | Login
+{% endblock %}
+
+{% block content %}
+<p>sorry we will let you know. as soon as possible</p>
+<p>{{ address.county }}<br>{{ address.town_address }}<br>{{ address.zip }}<br>{{address.pick_station}}</p>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+{% extends "base.html" %}
+{% load cart_template_tags %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Checkout</title> 
+{% endblock title %}
+
+{% block content %}
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+.container {
+    margin-top: 50px; margin-bottom: 50px;
+}
+.card { position: relative; display: flex; flex-direction: column; min-width: 0; word-wrap: break-word; background-color: #fff;
+    background-clip: border-box; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 0.10rem;
+}
+.card-header:first-child {  border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0;
+}
+.card-header { padding: 0.75rem 1.25rem; margin-bottom: 0; background-color: #fff; border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.track { position: relative; background-color: #ddd; height: 7px; display: flex; margin-bottom: 60px; margin-top: 50px;
+}
+.track .step { flex-grow: 1; width: 25%; margin-top: -18px; text-align: center; position: relative;
+}
+.track .step.active:before { background: #4d79ff;
+}
+.track .step::before { height: 7px; position: absolute;  content: ""; width: 100%;  left: 0;  top: 18px;
+}
+.track .step.active .icon { background: #ee5435; color: #fff;
+}
+.track .icon { display: inline-block; width: 40px; height: 40px; line-height: 40px; position: relative; border-radius: 100%; background: #ddd;
+}
+.track .step.active .text { font-weight: 400; color: #000;
+}
+.track .text { display: block; margin-top: 7px;
+}
+.card-body {  padding: 20px;
+}
+.card-body h6 { margin-top: 0; margin-bottom: 20px;
+}
+.card-body .row {  margin-bottom: 20px;
+}
+.card-body .col {  flex: 1;  text-align: center;
+}
+.card-body .col strong {  display: block; margin-bottom: 10px;
+}
+.img-box img {  width: 100%; border-radius: 20px;  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.btn-primary {  background-color: #4d79ff;  border-color: #4d79ff; color: #fff;
+}
+.btn-primary:hover { background-color: #2657ff; border-color: #2657ff; color: #fff;
+}
+</style>
+<body>
+<section class="hero blog-hero">
+    <div class="container-fluid">
+        <div class="row">
+            <h2>#Track Your Order</h2>
+            <p>Thank you for choosing Living Garden, for the tracking your orders see details below!</p>
+        </div>
+    </div>
+</section><!-- hero ./ -->
+  <section id="checkout-container">
+      <div class="container">
+        <article class="card">
+            <header class="card-header"> My Orders / Tracking </header>
+            <div class="card-body">
+                {% if order_number %}
+                <h6>Order ID: {{ order_number.reference_code }}</h6>
+                {% endif %}
+                <article class="card">
+                    <div class="card-body row">
+                        {% if order_number %}
+                        <div class="col"> <strong>A Delivery time:</strong> <br>{{ order_number.delivery_date|date:'F jS, Y' }} </div>
+                        {% endif %}
+                        <div class="col"> <strong>Shipping BY:</strong> <br> MAXGROUP, | <i class="fa fa-phone"></i> 0742273610 </div>
+                        <div class="col"> <strong>Status:</strong> <br> Picked by the courier </div>
+                        <div class="col"> <strong>Tracking #:</strong> <br> BD045903594059 </div>
+                    </div>
+                </article>
+                <div class="track">
+                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+                    <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+                    <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+                    <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+                </div>
+                <hr>
+                <div class="row">                    
+                    <div class="col-lg-3 col-md-4">                                
+                        <a href="{{ item.get_absolute_url }}" class="link">
+                            <figure class="img-box">
+                                <img src="{% static 'img1\flo\chrysanthemum17.jpg' %}" alt="{{ item.image_title }}">
+                            </figure>
+                        </a>
+                        <div class="details">                            
+                            <span class="cat"><i class="uil uil-tag-alt"></i> Mix Bunch</span>
+                            <div class="star">
+                                <h4 class="">Ksh 200</h4>
+                            </div>
+                        </div>
+                    </div><!-- products-end ./ -->                    
+                </div>
+                <hr>
+                <a href="#" class="btn btn-primary" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+                <a href="#" class="btn btn-primary" data-abc="true"> <i class="fa fa-chevron-right"></i> Back to orders</a>
+            </div>
+        </article> 
+      </div>
+  </section>
+</body>
+{% endblock content %}

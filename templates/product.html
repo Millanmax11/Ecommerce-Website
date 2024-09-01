@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>LG - Living Garden | Products</title> 
+{% endblock title %}
+
+{% block content %}
+
+    <main class="wrapper">
+        <section class="hero">
+            <div class="container-fluid">
+                <div class="row">
+                    <h2>#stayhome</h2>
+                    <p>Save more with coupons &amp; up to 30% off!</p>
+                </div>
+            </div>
+        </section><!-- hero ./ -->
+
+        <section class="products pm">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <article class="title text-center">
+                            <h2 class="title-sec">Products</h2>
+                            <p class="sub-title">Latest Products <i class="uil uil-list-ui-alt"></i><i class="uil uil-watch-alt"></i></p>
+                        </article>
+                    </div>
+                </div>
+                <section>
+                    
+                </section>
+                <div class="row"> 
+                    <div class="col-md-6 col-lg-4">
+                        <div class="product-item discount">
+                            <div class="product-item-inner">
+                                <span class="discount">&dollar;{{item.discount_price}}</span>
+                                <a href="./products/product-details.html" class="link">
+                                    <figure class="img-box">
+                                        <img src="{% static 'img1\flo\dahli2.jpg' %}" alt="Ore Quantum PWG927.650">
+                                    </figure>
+                                </a>
+                                <div class="details">
+                                    <span class="cat"><i class="uil uil-tag-alt"></i> {{ object.get_category_display }}</span>                                    
+                                    <div class="star">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                        <h4><span class="old-prc">&dollar;{{item.old_price}}</span>&dollar;{{object.price}}</h4>
+                                    </div>
+                                    <a href="./single-products.html" class="go-to-cart"><i class="uil uil-shopping-bag shopping-cart cart"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- products-end ./ -->
+                    
+                </div>
+                <!-- <div class="row">
+                    <div class="col-12 text-center mt-3">
+                        <a href="./products.html" class="btn btn-theme">View All Products <i class="uil uil-arrow-circle-right"></i></a>
+                    </div>
+                </div> -->
+            </div>
+        </section><!-- products-end ./ -->
+
+        <section class="pagination">
+            <div class="container">
+                <div class="row">
+                    <div class="pagination justify-content-center">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">...</a>
+                        <a href="#">30</a>
+                        <a href="#"><i class="uil uil-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-support">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-12">
+                        <h4>Repair &amp; Support - Services</h4>
+                        <h2>Up to <span>50% off</span> - All Watches &amp; Accessories</h2>
+                        <button class="btn-normal">Explore More</button>
+                    </div>
+                </div>
+            </div>
+        </section><!-- product support-end -->
+
+        <section class="collection my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 c-box-img">
+                        <div class="c-box">
+                            <h4>Crazy Deals</h4>
+                            <h2>Buy 1 get 1 Free</h2>
+                            <span>The best variety flower is on sale at Living Gardens.</span>
+                            <button class="btn-coll">Learn More</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 c-box-img">
+                        <div class="c-box">
+                            <h4>Spring / Summer</h4>
+                            <h2>Upcomming Season</h2>
+                            <span>New variety of flowers | On the way.</span>
+                            <button class="btn-coll">Collection</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container xs-c-oll">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 c-box-img">
+                        <div class="c-box">
+                            <h4>BIRTHDAY FLOWERS</h4>
+                            <span>I need of Birthday flowers | Just make a contact | Make your order.</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 c-box-img">
+                        <div class="c-box">
+                            <h4>WEDDING FLOWERS</h4>
+                            <span>Wedding flowers available | Decoration | Name it, all available.</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 c-box-img">
+                        <div class="c-box">
+                            <h4>VALENTINE FLOWERS</h4>
+                            <span>February Valentine around the corner | Flowers available.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+{% endblock content %}        
