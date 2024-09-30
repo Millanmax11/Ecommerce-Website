@@ -1,0 +1,31 @@
+-------------------------------FINISH REMAINING PARTS BEFORE SUBMITTION-------------------------------------
+            1. For each template, finish up on adding content, change the currency to ksh.
+            2. Replace irelevant content in each template, and again, work on all the links
+            3. Check the views file and finish up on TODO parts.
+
+            ######################## MPESA TRANSACTIONS PROCESSING ##########################
+             Solve the following;-
+             a) From MPESA DARAJA- gather the following-
+                    1. CONSUMER_KEY=
+                    2. CONSUMER_SECRET=
+                    3. SHORT_CODE=
+                    4. PASS_KEY=
+                    5. CALLBACK_URL=    Add the values in mpesa_Env.env
+
+            b)   In views.py;-
+                - chenge <checkout_request_Id> with with the actual ID from the callback data   
+                - in get() under paymentView recheck the amount (handle it).
+                -      
+ACTIONS
+1.User reistration and login
+2. Item checking
+3. Item added to cart
+4. Adding a billing address
+5. payment 
+(preprocessing, processing, packaging)
+6. Being delivered
+7. Received
+8. Refund
+
+                ............. check checkbox on .................
+                checkout.html

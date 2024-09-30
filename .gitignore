@@ -1,13 +1,5 @@
-env
-**/*.pyc
-**/__pycache__
-media
-.DS_Store
-*.sqlite3
-*.env
+<<<<<<< HEAD
+Ecom-Env/
+=======
 
-# Accept these files in the repository
-!.gitignore
-!.travis.yml
-/.env
-/.vscode
+>>>>>>> 044b5c5cdedd3870d8ca3e497a3a057f12d9532b
