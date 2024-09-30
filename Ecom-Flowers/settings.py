@@ -9,7 +9,7 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 DEBUG = False
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
+SECRET_KEY = os.getenv('SECRET_KEY')
 ALLOWED_HOSTS = ['https://flower-ecom-web-6bf01dafa3e0.herokuapp.com/']
 
 INSTALLED_APPS = [
@@ -83,12 +83,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'etbjgpv1z5h1jh22',
-        'USER': 'hk56gmnnvjz9cw9y',
-        'PASSWORD': 'j6jji880x4ul3ayj',
-        'HOST': 'l3855uft9zao23e2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.mysql',  # Or the appropriate backend
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '3306'),  # Default MySQL port is 3306
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
@@ -128,3 +128,20 @@ django_heroku.settings(locals())
 # Silence specific warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="allauth")
 
+#load error
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
