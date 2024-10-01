@@ -16,6 +16,9 @@ ALLOWED_HOSTS = [
     '.herokuapp.com',
 ]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
 # CSRF Trusted Origins
 CSRF_TRUSTED_ORIGINS = [
     'https://flower-ecom-web-6bf01dafa3e0.herokuapp.com',  # HTTPS version
