@@ -7,7 +7,7 @@ import warnings
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
-DEBUG = False
+DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALLOWED_HOSTS = ['flower-ecom-web-6bf01dafa3e0.herokuapp.com', '.herokuapp.com']
@@ -106,7 +106,7 @@ SECURE_REFERRER_POLICY = 'no-referrer'
 
 
 if ENVIRONMENT == 'production':
-    DEBUG = False
+    DEBUG = True
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
