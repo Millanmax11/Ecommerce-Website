@@ -10,7 +10,17 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
-ALLOWED_HOSTS = ['flower-ecom-web-6bf01dafa3e0.herokuapp.com', '.herokuapp.com']
+ALLOWED_HOSTS = [
+    'flower-ecom-web-6bf01dafa3e0.herokuapp.com',
+    'www.flower-ecom-web-6bf01dafa3e0.herokuapp.com',  # Add www version if needed
+    '.herokuapp.com',
+]
+
+# CSRF Trusted Origins
+CSRF_TRUSTED_ORIGINS = [
+    'https://flower-ecom-web-6bf01dafa3e0.herokuapp.com',  # HTTPS version
+    'http://flower-ecom-web-6bf01dafa3e0.herokuapp.com',   # HTTP version (if necessary)
+]
 
 
 INSTALLED_APPS = [
@@ -154,9 +164,3 @@ LOGGING = {
         },
     },
 }
-
-
-#Trusted cloud
-CSRF_TRUSTED_ORIGINS = [
-    'flower-ecom-web-6bf01dafa3e0.herokuapp.com',  # Replace with your actual Heroku app URL
-]
