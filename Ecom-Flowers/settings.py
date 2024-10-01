@@ -92,12 +92,12 @@ DATABASES = {
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
-        'ssl': {
+            'ssl': {
                 'ca': '/static_files/ssl/global-bundle.pem',  # Path to your CA certificate
                 'cert': '/static_files/ssl/global-bundle.pem',  # Path to your client certificate
                 'key': '/static_files/ssl/global-bundle.pem',  # Path to your client key
             },
+        },
         'CONN_MAX_AGE': 600,  # Persistent connections
     }
 }
