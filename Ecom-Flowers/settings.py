@@ -154,3 +154,9 @@ LOGGING = {
         },
     },
 }
+
+
+#Trusted cloud
+CSRF_TRUSTED_ORIGINS = [
+    'flower-ecom-web-6bf01dafa3e0.herokuapp.com',  # Replace with your actual Heroku app URL
+]
