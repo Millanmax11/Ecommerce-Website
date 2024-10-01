@@ -10,7 +10,8 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 DEBUG = False
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
-ALLOWED_HOSTS = ['https://flower-ecom-web-6bf01dafa3e0.herokuapp.com/']
+ALLOWED_HOSTS = ['flower-ecom-web-6bf01dafa3e0.herokuapp.com', '.herokuapp.com']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -83,18 +84,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Or the appropriate backend
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT', '3306'),  # Default MySQL port is 3306
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'etbjgpv1z5h1jh22',
+        'USER': 'hk56gmnnvjz9cw9y',
+        'PASSWORD': 'j6jji880x4ul3ayj',
+        'HOST': 'l3855uft9zao23e2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
         'CONN_MAX_AGE': 600,  # Persistent connections
     }
 }
+DATABASES['default'].update(dj_database_url.config(conn_max_age=600, ssl_require=True))
+SECURE_REFERRER_POLICY = 'no-referrer'
 
 
 if ENVIRONMENT == 'production':
