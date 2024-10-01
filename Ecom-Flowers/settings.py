@@ -132,7 +132,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 django_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
 
 # Silence specific warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="allauth")
