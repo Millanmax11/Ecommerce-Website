@@ -19,7 +19,7 @@ Living Garden | Sign Up
 					<div class="card fat">
 						<div class="card-body">
 							<h4 class="card-title">Register</h4>
-							<form method="POST" class="my-login-validation" novalidate="" action="{% url 'core:custom_signup' %}">
+							<form method="post" class="my-login-validation" novalidate="" action="{% url 'core:custom_signup' %}">
 								{% csrf_token %}
 								<div class="form-group">
 									<label for="username">Username</label>
