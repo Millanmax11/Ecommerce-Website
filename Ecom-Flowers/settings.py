@@ -1,9 +1,10 @@
 import os
 from dotenv import load_dotenv
 import django_heroku
-import dj_database_url
 import warnings
 
+import pymysql
+pymysql.install_as_MySQLdb()
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
@@ -97,24 +98,31 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+#DB
 DATABASES = {
-    'default': dj_database_url.config(
-        default='mysql://hk56gmnnvjz9cw9y:j6jji880x4ul3ayj@l3855uft9zao23e2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/etbjgpv1z5h1jh22',
-        conn_max_age=600,
-        ssl_require=True,
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'etbjgpv1z5h1jh22',
+        'USER': 'hk56gmnnvjz9cw9y',
+        'PASSWORD': 'j6jji880x4ul3ayj',
+        'HOST': 'l3855uft9zao23e2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {
+                'ca': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
+                'cert': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
+                'key': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
+            },
+        },
+    }
 }
+if os.getenv('ENVIRONMENT') == 'production':
+    DATABASES['default']['OPTIONS'] = {
+        'ssl': {
+            'ca': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
+        }
+    }
 
-# Additional SSL options can be added if necessary
-DATABASES['default']['OPTIONS'] = {
-    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-    'ssl': {
-        'ca': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-        'cert': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-        'key': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-    },
-}
 
 SECURE_REFERRER_POLICY = 'no-referrer'
 
@@ -123,7 +131,7 @@ if ENVIRONMENT == 'production':
     DEBUG = True
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -131,7 +139,6 @@ if ENVIRONMENT == 'production':
     SECURE_REDIRECT_EXEMPT = []
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 #authentication
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -147,7 +154,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 django_heroku.settings(locals())
-#del DATABASES['default']['OPTIONS']['sslmode']
+del DATABASES['default']['OPTIONS']['sslmode']
 
 # Silence specific warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="allauth")
