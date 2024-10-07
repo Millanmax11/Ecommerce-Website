@@ -22,12 +22,7 @@ oauthlib==3.2.2
 packaging==24.1
 pep8==1.7.1
 pillow==10.2.0
-psycopg2==2.9.9
-psycopg2-binary==2.9.9
-pycodestyle==2.5.0
-pycparser==2.21
-PyJWT==2.8.0
-PyMySQL==1.1.1
+PyMySQL==1.1.1  # Keep this for MySQL
 python-decouple==3.8
 python-dotenv==1.0.1
 python3-openid==3.2.0
