@@ -1,5 +1,4 @@
 asgiref==3.7.2
-gunicorn==23.0.0
 autopep8==1.4.4
 certifi==2024.2.2
 cffi==1.16.0
@@ -22,7 +21,10 @@ oauthlib==3.2.2
 packaging==24.1
 pep8==1.7.1
 pillow==10.2.0
-PyMySQL==1.1.1  # Keep this for MySQL
+mysqlclient==2.0.3  # Ensure this is included
+pycodestyle==2.12.1
+pycparser==2.22
+PyJWT==2.9.0
 python-decouple==3.8
 python-dotenv==1.0.1
 python3-openid==3.2.0
