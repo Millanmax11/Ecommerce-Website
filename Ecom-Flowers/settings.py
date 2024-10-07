@@ -1,32 +1,12 @@
 import os
 from dotenv import load_dotenv
-import django_heroku
-import warnings
-
-import pymysql
-pymysql.install_as_MySQLdb()
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = os.getenv('SECRET_KEY')
-ALLOWED_HOSTS = ['flower-ecom-web-6bf01dafa3e0.herokuapp.com', 'localhost', '127.0.0.1']
-
-
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-
-# CSRF Trusted Origins
-CSRF_TRUSTED_ORIGINS = [
-    'https://161e-41-89-104-15.ngrok-free.app',
-    'https://*.ngrok-free.app',
-    'https://*.herokuapp.com'
-]
-
-
-
+SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -59,14 +39,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',  # This should be here
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-
 
 ROOT_URLCONF = 'Ecom-Flowers.urls'
 
@@ -94,44 +72,21 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#DB
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'etbjgpv1z5h1jh22',
-        'USER': 'hk56gmnnvjz9cw9y',
-        'PASSWORD': 'j6jji880x4ul3ayj',
-        'HOST': 'l3855uft9zao23e2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'ssl': {
-                'ca': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-                'cert': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-                'key': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-            },
-        },
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
-if os.getenv('ENVIRONMENT') == 'production':
-    DATABASES['default']['OPTIONS'] = {
-        'ssl': {
-            'ca': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-        }
-    }
-
-
-SECURE_REFERRER_POLICY = 'no-referrer'
-
 
 if ENVIRONMENT == 'production':
-    DEBUG = True
+    DEBUG = False
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -139,6 +94,7 @@ if ENVIRONMENT == 'production':
     SECURE_REDIRECT_EXEMPT = []
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 #authentication
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -151,28 +107,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 #CRISPY-FORMS
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
-
-django_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
-
-# Silence specific warnings
-warnings.filterwarnings("ignore", category=UserWarning, module="allauth")
-
-#load error
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-    },
-}
+CSRF_TRUSTED_ORIGINS = [
+    'https://161e-41-89-104-15.ngrok-free.app',
+]
