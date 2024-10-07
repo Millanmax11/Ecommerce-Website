@@ -11,8 +11,8 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
-ALLOWED_HOSTS = ['flower-ecom-web-6bf01dafa3e0.herokuapp.com', 'localhost', '127.0.0.1']
-
+'''ALLOWED_HOSTS = ['flower-ecom-web-6bf01dafa3e0.herokuapp.com', 'localhost', '127.0.0.1']'''
+ALLOWED_HOST = []
 
 
 SECURE_SSL_REDIRECT = True
@@ -20,7 +20,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # CSRF Trusted Origins
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://flower-ecom-web-6bf01dafa3e0.herokuapp.com/.herokuapp.com']
 
 
 
@@ -97,6 +97,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #DB
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -120,6 +121,13 @@ if os.getenv('ENVIRONMENT') == 'production':
             'ca': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
         }
     }
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 SECURE_REFERRER_POLICY = 'no-referrer'
