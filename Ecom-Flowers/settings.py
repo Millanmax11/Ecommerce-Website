@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+import django_heroku
 import pymysql
 pymysql.install_as_MySQLdb()
 
@@ -9,6 +10,8 @@ DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
 ALLOWED_HOSTS = ['*']
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,13 +44,13 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # This should be here
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-
 ROOT_URLCONF = 'Ecom-Flowers.urls'
 
 TEMPLATES = [
@@ -123,3 +126,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CSRF_TRUSTED_ORIGINS = [
     'https://161e-41-89-104-15.ngrok-free.app',
 ]
+
+django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
