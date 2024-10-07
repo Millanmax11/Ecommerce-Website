@@ -10,17 +10,21 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
-ALLOWED_HOSTS = [os.environ.get('DJANGO_ALLOWED_HOSTS', 'flower-ecom-web-6bf01dafa3e0.herokuapp.com')]
+ALLOWED_HOSTS = [
+    'flower-ecom-web-6bf01dafa3e0.herokuapp.com',
+    '.herokuapp.com',  # Wildcard for Heroku subdomains
+]
 
 
+SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # CSRF Trusted Origins
 CSRF_TRUSTED_ORIGINS = [
-    'https://flower-ecom-web-6bf01dafa3e0.herokuapp.com',  # HTTPS version
-    'http://flower-ecom-web-6bf01dafa3e0.herokuapp.com',   # HTTP version (if necessary)
+    'https://flower-ecom-web-6bf01dafa3e0.herokuapp.com',  # HTTPS version (main one)
 ]
+
 
 
 INSTALLED_APPS = [
