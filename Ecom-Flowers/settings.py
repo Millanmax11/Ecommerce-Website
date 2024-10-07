@@ -97,34 +97,23 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'etbjgpv1z5h1jh22',
-        'USER': 'hk56gmnnvjz9cw9y',
-        'PASSWORD': 'j6jji880x4ul3ayj',
-        'HOST': 'l3855uft9zao23e2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            'ssl': {
-                'ca': '/static_files/ssl/global-bundle.pem',  # Path to your CA certificate
-                'cert': '/static_files/ssl/global-bundle.pem',  # Path to your client certificate
-                'key': '/static_files/ssl/global-bundle.pem',  # Path to your client key
-            },
-        },
-        'CONN_MAX_AGE': 600,  # Persistent connections
-    }
-}
-DATABASES['default'].update(dj_database_url.config(conn_max_age=600, ssl_require=True))
-'''
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # Path to your SQLite database file
-    }
+    'default': dj_database_url.config(
+        default='mysql://hk56gmnnvjz9cw9y:j6jji880x4ul3ayj@l3855uft9zao23e2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/etbjgpv1z5h1jh22',
+        conn_max_age=600,
+        ssl_require=True,
+    )
+}
+
+# Additional SSL options can be added if necessary
+DATABASES['default']['OPTIONS'] = {
+    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    'ssl': {
+        'ca': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
+        'cert': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
+        'key': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
+    },
 }
 
 SECURE_REFERRER_POLICY = 'no-referrer'
