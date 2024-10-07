@@ -21,7 +21,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # CSRF Trusted Origins
 CSRF_TRUSTED_ORIGINS = [
     'https://flower-ecom-web-6bf01dafa3e0.herokuapp.com',
+    'https://*.herokuapp.com',  # Allow subdomains of herokuapp.com if applicable
 ]
+
 
 
 
@@ -57,13 +59,14 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # This should be here
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
 
 ROOT_URLCONF = 'Ecom-Flowers.urls'
 
