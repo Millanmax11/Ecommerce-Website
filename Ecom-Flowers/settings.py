@@ -97,6 +97,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -117,6 +118,15 @@ DATABASES = {
     }
 }
 DATABASES['default'].update(dj_database_url.config(conn_max_age=600, ssl_require=True))
+'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # Path to your SQLite database file
+    }
+}
+
 SECURE_REFERRER_POLICY = 'no-referrer'
 
 
@@ -148,7 +158,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 django_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
+#del DATABASES['default']['OPTIONS']['sslmode']
 
 # Silence specific warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="allauth")
