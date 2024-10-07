@@ -21,6 +21,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # CSRF Trusted Origins
 CSRF_TRUSTED_ORIGINS = [
     'https://161e-41-89-104-15.ngrok-free.app',
+    'https://*.ngrok-free.app',
+    'https://*.herokuapp.com'
 ]
 
 
