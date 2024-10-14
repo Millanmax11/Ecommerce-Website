@@ -21,11 +21,25 @@ Living Garden | Login
 							<h4 class="card-title">Login</h4>
 							<form method="POST" class="my-login-validation" novalidate="" action="{% url 'core:custom_login' %}">
 								{% csrf_token %}
+								<!-- Display form errors -->
+                                {% if form.errors %}
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            {% for field in form %}
+                                                {% for error in field.errors %}
+                                                    <li>{{ field.label }}: {{ error }}</li>
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
 								<div class="form-group">
 									<label for="name">Username</label>
 									<input id="name" type="name" class="form-control" name="username" value="" required autofocus>
 									<div class="invalid-feedback">
-										Username is invalid
+										{% if form.username.errors %}
+                                            {{ form.username.errors.0 }}
+                                        {% endif %}
 									</div>
 								</div>
 
@@ -37,16 +51,18 @@ Living Garden | Login
 									</label>
 									<input id="password" type="password" class="form-control" name="password" required data-eye>
 								    <div class="invalid-feedback">
-								    	Password is required
+								    	{% if form.password.errors %}
+                                            {{ form.password.errors.0 }}
+                                        {% endif %}
 							    	</div>
 								</div>
 
 								<div class="form-group">
-									<div class="custom-checkbox custom-control">
-										<input type="checkbox" name="remember" id="remember" class="custom-control-input">
-										<label for="remember" class="custom-control-label">Remember Me</label>
-									</div>
-								</div>
+                                    <div class="custom-checkbox custom-control">
+                                        <input type="checkbox" name="remember" id="remember" class="custom-control-input" {% if request.POST.remember %}checked{% endif %}>
+                                        <label for="remember" class="custom-control-label">Remember Me</label>
+                                    </div>
+                                </div>
 								<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
 								<div class="form-group m-0">
 									<button type="submit" class="btn btn-primary btn-block">

@@ -13,6 +13,8 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from .forms import CustomSignupForm  # Import the custom form
+from .forms import CustomLoginForm
 from datetime import datetime, timedelta
 import base64
 import random
@@ -39,46 +41,59 @@ def create_track_number():
 def account_login(request):
   return render(request, "/account/login.html")
 
+#Login
 def custom_login(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        
-        if not username or not password:
-            messages.info(request, "Enter your details first.")
-            return render(request, "account/login.html")
-        
-        user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            messages.success(request, "You are successfully logged in.")
-            return redirect('core:homepage')
+        form = CustomLoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            remember_me = form.cleaned_data.get('remember')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, "You are successfully logged in.")
+
+                # If the user selected "Remember Me", set the session timeout to a longer duration (e.g., 1 week).
+                if remember_me:
+                    request.session.set_expiry(604800)  # Session will expire in 1 week (7 days)
+                else:
+                    request.session.set_expiry(0)  # Session expires when the browser is closed (default behavior)
+                
+                return redirect('core:homepage')
+            else:
+                messages.error(request, "Invalid username or password.")
         else:
-            messages.error(request, "Invalid username or password.")
-            return render(request, 'account/login.html')
+            # Form is not valid, errors will be displayed
+            messages.error(request, "Please correct the errors below.")
     else:
-        return redirect('account_login')
-    
+        form = CustomLoginForm()
+
+    return render(request, 'account/login.html', {'form': form})
+
+# Signup    
 def custom_signup(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        email = request.POST['email']
+        form = CustomSignupForm(request.POST)
         
-        if not username or not email or not password:
-            messages.info(request, "Enter your details first.")
-            return render(request, "account/signup.html")
-        
-        if User.objects.filter(username=username).exists():
-            messages.info(request, "Username already exists.")
-            return render(request, 'account/signup.html')
-        
-        user = User.objects.create_user(username=username, email=email, password=password)
-        messages.success(request, "You are successfully signed up.")
-        return redirect('account_login')
+        if form.is_valid():  # If form passes all validation checks
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+
+            # Create the user
+            User.objects.create_user(username=username, email=email, password=password)
+
+            messages.success(request, "Your account has been created successfully. You can now log in.")
+            return redirect('account_login')  # Redirect to login page after signup
+        else:
+            # If the form is not valid, render the page again with the form errors
+            return render(request, 'account/signup.html', {'form': form})
     else:
-        return render(request, 'account/signup.html')
+        form = CustomSignupForm()  # Show an empty form for GET request
+        return render(request, 'account/signup.html', {'form': form})
 
 
 
