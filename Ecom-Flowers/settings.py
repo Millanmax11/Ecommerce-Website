@@ -1,8 +1,5 @@
 import os
 from dotenv import load_dotenv
-import django_heroku
-import pymysql
-pymysql.install_as_MySQLdb()
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
@@ -83,19 +80,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'etbjgpv1z5h1jh22',
-        'USER': 'hk56gmnnvjz9cw9y',
-        'PASSWORD': 'j6jji880x4ul3ayj',
-        'HOST': 'l3855uft9zao23e2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'ssl': {
-                'ca': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-                'cert': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-                'key': os.path.join(BASE_DIR, 'ssl_certificates', 'global-bundle.pem'),
-            },
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -126,6 +112,3 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CSRF_TRUSTED_ORIGINS = [
     'https://161e-41-89-104-15.ngrok-free.app',
 ]
-
-django_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
